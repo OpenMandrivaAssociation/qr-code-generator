@@ -97,8 +97,9 @@ QR Code generator library for Python
 %autosetup -p1 -n QR-Code-generator-%{version}
 
 %build
-%make -C c
-%make -C cpp
+# We disable LTO because we're building static libraries
+%make_build -C c CC=%{__cc} CFLAGS="%{optflags} -fno-lto"
+%make_build -C cpp CXX=%{__cxx} CXXFLAGS="%{optflags} -fno-lto"
 
 cd java/src/main/java
 . %{_sysconfdir}/profile.d/90java.sh
