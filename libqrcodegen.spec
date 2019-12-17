@@ -18,6 +18,7 @@ License: MIT
 Group: System/Libraries
 BuildRequires: jdk-current
 BuildRequires: pkgconfig(python3)
+BuildRequires: python3dist(setuptools)
 # FIXME package Javascript, Typescript and Rust modules once we have
 # a proper unified packaging system for those languages
 
