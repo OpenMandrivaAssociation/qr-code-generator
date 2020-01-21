@@ -21,9 +21,8 @@ Source0: %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 # https://github.com/nayuki/QR-Code-generator/pull/72
 Patch100: %{name}-build-fixes.patch
 
-BuildRequires: python3-devel
-BuildRequires: gcc-c++
-BuildRequires: gcc
+BuildRequires: pkgconfig(python3)
+BuildRequires: python3dist(setuptools)
 
 %description
 This project aims to be the best, clearest QR Code generator library in
