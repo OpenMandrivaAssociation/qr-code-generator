@@ -4,18 +4,22 @@
 %define cpplibd %mklibname -d qrcodegencpp
 
 %global richname QR-Code-generator
-%global commit0 13a25580a3e2a29b2b6653802d58d39056f3eaf2
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date 20200302
+#global commit0 13a25580a3e2a29b2b6653802d58d39056f3eaf2
+#global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+#global date 20200302
 
 Name: qr-code-generator
-Version: 1.5.0
-Release: 1.%{date}git%{shortcommit0}%{?dist}
+Version: 1.7.0
+Release: %{?date:%{date}git%{shortcommit0}.}1
 
 License: MIT
 Summary: High-quality QR Code generator library
 URL: https://github.com/nayuki/%{richname}
+%if 0%{?date}
 Source0: %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+%else
+Source0: https://github.com/nayuki/QR-Code-generator/archive/refs/tags/v%{version}.tar.gz
+%endif
 
 # https://github.com/nayuki/QR-Code-generator/pull/72
 Patch100: %{name}-build-fixes.patch
@@ -96,7 +100,7 @@ Secondary goals are compact implementation size and good documentation
 comments.
 
 %prep
-%autosetup -n %{richname}-%{commit0} -p1
+%autosetup -n %{richname}-%{!?date:%{version}}%{?date:%{commit0}} -p1
 
 %build
 # Exporting correct build flags...
@@ -137,6 +141,10 @@ popd
 # Installing C++ version...
 %make_install -C cpp LIBDIR=%{buildroot}%{_libdir} INCLUDEDIR=%{buildroot}%{_includedir}/qrcodegencpp
 
+# The API has remained largely the same, but the header file name
+# has changed since 1.5.0 -- so let's symlink it for compatibility
+ln -s qrcodegen.hpp %{buildroot}%{_includedir}/qrcodegencpp/QrCode.hpp
+
 # Installing Java version...
 cd java
 mkdir -p %{buildroot}%{_datadir}/java/modules %{buildroot}%{_datadir}/javadoc
@@ -163,7 +171,7 @@ popd
 %{_libdir}/libqrcodegencpp.so.1*
 
 %files -n %{cpplibd}
-%dir %{_includedir}/qrcodegen
+%dir %{_includedir}/qrcodegencpp
 %{_includedir}/qrcodegencpp/*.hpp
 %{_libdir}/libqrcodegencpp.so
 
