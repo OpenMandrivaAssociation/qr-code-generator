@@ -9,7 +9,7 @@
 #global date 20200302
 
 Name: qr-code-generator
-Version: 1.7.0
+Version: 1.8.0
 Release: %{?date:%{date}git%{shortcommit0}.}1
 
 License: MIT
@@ -18,7 +18,7 @@ URL: https://github.com/nayuki/%{richname}
 %if 0%{?date}
 Source0: %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 %else
-Source0: https://github.com/nayuki/QR-Code-generator/archive/refs/tags/v%{version}.tar.gz
+Source0: https://github.com/nayuki/QR-Code-generator/archive/v%{version}/%{richname}-%{version}.tar.gz
 %endif
 
 # https://github.com/nayuki/QR-Code-generator/pull/72
@@ -184,5 +184,4 @@ popd
 
 %files -n python-qrcodegen
 %{py_puresitedir}/qrcodegen.py
-%{py_puresitedir}/__pycache__/*
 %{py_puresitedir}/*.egg-info
