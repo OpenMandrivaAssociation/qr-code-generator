@@ -25,8 +25,8 @@ Source0: https://github.com/nayuki/QR-Code-generator/archive/v%{version}/%{richn
 Patch100: %{name}-build-fixes.patch
 
 BuildRequires: jdk-current
-BuildRequires: pkgconfig(python3)
-BuildRequires: python3dist(setuptools)
+BuildRequires: python-devel >= 3.11
+BuildRequires: python-setuptools >= 3.11
 
 # FIXME package Javascript, Typescript and Rust modules once we have
 # a proper unified packaging system for those languages
