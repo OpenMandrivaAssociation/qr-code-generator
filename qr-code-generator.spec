@@ -24,6 +24,7 @@ Source0: https://github.com/nayuki/QR-Code-generator/archive/v%{version}/%{richn
 # https://github.com/nayuki/QR-Code-generator/pull/72
 Patch100: %{name}-build-fixes.patch
 
+BuildRequires:	make
 BuildRequires: jdk-current
 BuildRequires: pkgconfig(python3) >= 3.11
 BuildRequires: python%{pyver}dist(setuptools) >= 3.11
